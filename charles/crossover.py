@@ -19,6 +19,39 @@ def single_point_crossover(parent1, parent2):
 
     return offspring1, offspring2
 
+def cycle_crossover(parent1, parent2):
+
+    offspring1 = [None] * len(parent1)
+    offspring2 = [None] * len(parent1)
+
+    while None in offspring1:
+        idx = offspring1.index(None)
+
+        val1 = parent1[idx]
+        val2 = parent2[idx]
+
+        while val1 != val2:
+            # set values on the offspring
+            offspring1[idx] = parent1[idx]
+            offspring2[idx] = parent2[idx]
+
+            # update val2 to the value on the new index
+            val2 = p2[idx]
+            
+            # get new position on parent 1 that correspond to the value on parent 2
+            idx = parent1.index(val2)
+
+
+        for element in offspring1:
+            if element is None:
+                idx = offspring1.index(element)
+                if offspring1[idx] is None:
+                    offspring1[idx] = parent2[idx]
+                    offspring2[idx] = parent1[idx]
+
+    return offspring1, offspring2
+
+
 
 if __name__ == '__main__':
     p1 = [0, 0, 0, 0]
