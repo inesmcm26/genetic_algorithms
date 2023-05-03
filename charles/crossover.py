@@ -36,8 +36,8 @@ def cycle_crossover(parent1, parent2):
             offspring2[idx] = parent2[idx]
 
             # update val2 to the value on the new index
-            val2 = p2[idx]
-            
+            val2 = parent2[idx]
+
             # get new position on parent 1 that correspond to the value on parent 2
             idx = parent1.index(val2)
 

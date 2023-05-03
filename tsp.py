@@ -4,6 +4,7 @@ from charles.charles import Individual, Population
 from charles.search import hill_climb, sim_annealing
 from charles.selection import fitness_proportionate_selection, tournament_selection
 from charles.mutation import swap_mutation
+from charles.crossover import cycle_crossover
 from data.tsp_data import distance_matrix
 
 from copy import deepcopy
@@ -43,7 +44,7 @@ class TSPIndividual(Individual):
         return int(dist)
 
 pop = Population(
-    size = 1,
+    size = 100,
     sol_size = len(distance_matrix[0]),
     valid_set = [i for i in range(len(distance_matrix[0]))], # representation of each city is an integer
     type_of_individ = TSPIndividual,
@@ -52,4 +53,12 @@ pop = Population(
 )
 
 # hill_climb(pop)
-sim_annealing(pop)
+# sim_annealing(pop)
+
+pop.evolve(n_generations = 100,
+           xo_prob = 0.9,
+           mut_prob = 0.15,
+           mutate = swap_mutation,
+           crossover = cycle_crossover,
+           select = tournament_selection,
+           elitism = True)
