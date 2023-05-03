@@ -43,6 +43,9 @@ class Individual:
     def __getitem__(self, position):
         return self.representation[position]
     
+    def index(self, value):
+        return self.representation.index(value)
+    
     def get_neighbours():
         raise Exception('You need to implement this method')
     
