@@ -2,6 +2,8 @@
 
 from charles.charles import Individual, Population
 from charles.search import hill_climb, sim_annealing
+from charles.selection import fitness_proportionate_selection, tournament_selection
+from charles.mutation import swap_mutation
 from data.tsp_data import distance_matrix
 
 from copy import deepcopy
