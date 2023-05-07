@@ -1,0 +1,22 @@
+Falkenauer and Delchambre [24] noted that the first two encodings (bin-based and object-based) could run into difficulties because they are highly redundant and are not adapted to the BPP cost function; the authors proved that the group-based encoding scheme avoids these problems
+
+>>> import itertools
+>>> nrs = [1, 2, 3, 4]
+# todas as mesas possíveis sem importar a ordem dentro da mesma mesa
+>>> possible_tables = list(itertools.combinations(nrs, 2)) # 2 is the number of available seats in each table
+# todas as combinações de mesas possíveis sem importar a ordem entre mesas
+>>> tables_combinations = list(itertools.combinations(possible_tables, 2)) # 2 is the number of tables
+>>> tables_combinations
+[((1, 2), (1, 3)), ((1, 2), (1, 4)), ((1, 2), (2, 3)), ((1, 2), (2, 4)), ((1, 2), (3, 4)), ((1, 3), (1, 4)), ((1, 3), (2, 3)), ((1, 3), (2, 4)), ((1, 3), (3, 4)), ((1, 4), (2, 3)), ((1, 4), (2, 4)), ((1, 4), (3, 4)), ((2, 3), (2, 4)), ((2, 3), (3, 4)), ((2, 4), (3, 4))]
+# todas as mesas feasible -> todas as pessoas sentadas numa e uma só mesa
+>>> mutually_exclusive_combinations = []
+>>> for combination in tables_combinations:
+... 	flat_combination = set(num for group in combination for num in group)
+... 	if len(flat_combination) == 4: # confirm that there are no redundant solutions
+...         		mutually_exclusive_combinations.append(combination)
+...
+>>> mutually_exclusive_combinations
+[((1, 2), (3, 4)), ((1, 3), (2, 4)), ((1, 4), (2, 3))]
+>>>
+Garante que não há mesas redundantes nem há a redundancia entre mesas tipo mesa1, mesa2, mesa3 = mesa2, mesa1, mesa3
+
