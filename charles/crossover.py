@@ -1,4 +1,4 @@
-from random import randint, sample
+from random import randint, sample, uniform
 
 def single_point_crossover(parent1, parent2):
     """
@@ -87,7 +87,28 @@ def partially_matched_crossover(parent1, parent2):
     
     return pmx_offspring(parent1, parent2), pmx_offspring(parent2, parent1)
 
+def arithmetic_crossover(parent1, parent2):
+    """
+    Arithmetic crossover for real-valued individuals.
 
+    Args:
+        p1 (Individual): First parent for crossover.
+        p2 (Individual): Second parent for crossover.
+
+    Returns:
+        Individuals: Two offspring, resulting from the crossover.
+        
+    """
+    offspring1 = [None] * len(parent1)
+    offspring2 = [None] * len(parent1)
+
+    alpha = uniform(0, 1)
+
+    for i in range(len(parent1)):
+        offspring1[i] = alpha * parent1[i] + (1 - alpha) * parent2[i]
+        offspring2[i] = alpha * parent2[i] + (1 - alpha) * parent1[i]
+
+    return offspring1, offspring2
 
 
 if __name__ == '__main__':
