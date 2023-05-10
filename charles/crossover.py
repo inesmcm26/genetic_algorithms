@@ -116,7 +116,10 @@ if __name__ == '__main__':
     # p2 = [1, 1, 1, 1]
     # print(single_point_crossover(p1, p2))
 
-    p1 = [9, 8, 4, 5, 6, 7, 1, 3, 2, 10]
-    p2 = [8, 7, 1, 2, 3, 10, 9, 5, 4, 6]
-    print(partially_matched_crossover(p1, p2))
+    # p1 = [9, 8, 4, 5, 6, 7, 1, 3, 2, 10]
+    # p2 = [8, 7, 1, 2, 3, 10, 9, 5, 4, 6]
+    # print(partially_matched_crossover(p1, p2))
+
+    p1, p2 = [0.1, 0.3, 0.1], [0.5, 0.2, 0.5]
+    print(arithmetic_crossover(p1, p2))
 
