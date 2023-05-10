@@ -1,4 +1,4 @@
-from random import randint
+from random import randint, sample
 
 def single_point_crossover(parent1, parent2):
     """
@@ -52,8 +52,50 @@ def cycle_crossover(parent1, parent2):
     return offspring1, offspring2
 
 
+def partially_matched_crossover(parent1, parent2):
+
+    xo_points = sample(range(len(parent1)), 2)
+    xo_points.sort()
+
+
+    def pmx_offspring(parent1, parent2):
+        offspring = [None for _ in range(len(parent1))]
+
+        # get the segment from the first parent
+        offspring[xo_points[0]:xo_points[1]] = parent1[xo_points[0]:xo_points[1]]
+        
+        # get the numbers that do not belong to the segments of both parents
+        # numbers of the segment that are unique for parent2
+        z = set(parent2[xo_points[0]:xo_points[1]]) - set(parent1[xo_points[0]:xo_points[1]])
+
+        for num in z:
+            temp = num
+
+            # get the index of the mirror number on the other parent
+            idx = parent2.index(parent1[parent2.index(temp)])
+            while offspring[idx] is not None:
+                temp = idx
+                idx = parent2.index(parent1[temp])
+            offspring[idx] = num
+        
+        while None in offspring:
+            idx = offspring.index(None)
+            offspring[idx] = parent2[idx]
+        
+        return offspring
+
+    
+    return pmx_offspring(parent1, parent2), pmx_offspring(parent2, parent1)
+
+
+
 
 if __name__ == '__main__':
-    p1 = [0, 0, 0, 0]
-    p2 = [1, 1, 1, 1]
-    print(single_point_crossover(p1, p2))
+    # p1 = [0, 0, 0, 0]
+    # p2 = [1, 1, 1, 1]
+    # print(single_point_crossover(p1, p2))
+
+    p1 = [9, 8, 4, 5, 6, 7, 1, 3, 2, 10]
+    p2 = [8, 7, 1, 2, 3, 10, 9, 5, 4, 6]
+    print(partially_matched_crossover(p1, p2))
+
